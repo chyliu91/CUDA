@@ -5,12 +5,8 @@ CUDA 程序通常由以下两个部分组成：
 - 主机代码（Host Code）：运行在 CPU 上的代码，负责整体的程序流程控制，数据的预处理和后处理，以及与 GPU 的交互
 - 设备代码（Device Code）：运行在 GPU 上的代码，通常是通过核函数（Kernel Functions）实现的并行计算部分
 
-CUDA 核函数的一般特点:
+CUDA 核函数的定义需要使用 `__global__`，调用时需要指定执行配置 `<<<线程网格大小, 线程块大小>>>`，返回值必须是 `void` 类型
 
-- 并行执行：核函数可以被成千上万的线程同时执行，每个线程处理不同的数据
-- 定义方式：核函数需要使用 `__global__` 关键字进行定义，表明它可以在设备上执行
-- 返回类型：核函数的返回类型必须是 `void`，即核函数不能返回任何值
-- 执行配置：核函数的执行需要指定执行配置，例如：`<<<线程网格大小, 线程块大小>>>`
 
 ```
 #include <cstdio>
@@ -44,14 +40,19 @@ hello_world<<<2,4>>>();
 - 2 表示网格大小，即线程块的个数，这里是 2，4 表示线程块大小，即每个线程块中的线程数，这里是 4，总的线程数是通过网格大小乘以每个线程块的大小来计算的，即 `2 * 4 = 8`。这意味着 `hello_world` 核函数将使用 8 个 CUDA 线程来执行
 - 
 
+### CUDA 中的线程组织
+![](./imgs/thread_gride.png)
+
+- 基本关系是 `Thread` 在一起组成了 `Block`，`Block` 在一起组成了 `Grid`
+- 线程是 CUDA 编程中的最小单位，实际上线程分块是逻辑上的划分，在物理上线程不分块
+- CUDA 中对能够定义的网格大小和线程块大小做了限制，从开普勒架构开始：
+	- 线程块大小在 `x`、`y` 和 `z` 这 3 个方向的最大允许值分别为 `1024`、`1024`和 `64`
+	- 网格大小在 `x`、`y` 和 `z` 这 3 个方向的最大允许值分别为 `2^31-1`、`65535` 和 `65535`
+	- 另外，还要求线程块总的大小，即 `blockDim.x * blockDim.y * blockDim.z` 不能大于 `1024`。也就是说，不管如何定义，一个线程块最多只能有 `1024` 个线程
+- 在调用 GPU 的时候，核函数中是允许开很多线程的，开的线程个数可以远高于 GPU 计算核心的数量，一般来说，只要线程数比 GPU 中的计算核心数（几百至几千个）多几倍时，就有可能充分地利用 GPU 中的全部计算资源
+
+
 ### 使用线程索引
-
-CUDA 核函数的执行配置: `<<<grid_size, block_size>>>`
-
-- `grid_size`、`block_size` 一般来说是一个结构体类型的变量，但也可以是一个普通的整型变量
-- 从开普勒架构开始，最大允许的线程块大小是 `1024`，而最大允许的网格大小是 `2^31-1`（针对这里的一维网格来说），所以，用上述简单的执行配置时最多可以指派大约两万亿个线程。这通常是远大于一般的编程问题中常用的线程数的
-- 一般来说，只要线程数比GPU中的计算核心数（几百至几千个）多几倍时，就有可能充分地利用GPU中的全部计算资源
-
 
 每个线程在核函数中都有一个唯一的身份标识。由于我们用两个参数指定了线程数目，那么自然地，每个线程的身份可由两个参数确定。在核函数内部，程序是知道执行配置参数 `grid_size` 和 `block_size` 的值，这两个值分别保存于如下的内建变量中：
 
@@ -71,7 +72,8 @@ CUDA 核函数的执行配置: `<<<grid_size, block_size>>>`
 __global__ void hello_world(){
 	int bid = blockIdx.x;
 	int tid = threadIdx.x;
-	printf("hello world from block:%d and thread:%d.\n", bid, tid);
+	int g_tid = blockIdx.x * blockDim.x +  threadIdx.x; // 0~7
+	printf("hello world from block:%d and thread:%d with global thread id: %d.\n", bid, tid, g_tid);
 }
 
 int main()
@@ -81,6 +83,18 @@ int main()
 
 	return 0;
 }
+```
+
+输出:
+```
+hello world from block:0 and thread:0 with global thread id: 0.
+hello world from block:0 and thread:1 with global thread id: 1.
+hello world from block:0 and thread:2 with global thread id: 2.
+hello world from block:0 and thread:3 with global thread id: 3.
+hello world from block:1 and thread:0 with global thread id: 4.
+hello world from block:1 and thread:1 with global thread id: 5.
+hello world from block:1 and thread:2 with global thread id: 6.
+hello world from block:1 and thread:3 with global thread id: 7.
 ```
 
 ### 多维线程网格
@@ -133,31 +147,154 @@ dim3 block_size(3, 2);
 
 多维的网格和线程块本质上还是一维的，就像多维数组本质上也是一维数组一样。
 
-全局线程索引计算方式为:
-```
-int tid=threadIdx.z×blockDim.x×blockDim.y+threadIdx.y×blockDim.x+threadIdx.x;
-```
-- 也就是说，`x` 维度是最内层的（变化最快），而 `z` 维度是最外层的（变化最慢）
-
 
 全局线程块索引计算方式为:
 ```
-int bid=blockIdx.z×gridDim.x×gridDim.y+blockIdx.y×gridDim.x+blockIdx.x;
+int bid = blockIdx.z * gridDim.x * gridDim.y + blockIdx.y * gridDim.x + blockIdx.x;
+```
+
+局部线程索引计算方式为:
+```
+int tid = threadIdx.z * blockDim.x * blockDim.y + threadIdx.y * blockDim.x + threadIdx.x;
+```
+
+全局线程索引的计算方式为:
+```
+int id = bid * (blockDim.z * blockDim.y * blockDim.x) + tid;
+``` 
+
+- 也就是说，`x` 维度是最内层的（变化最快），而 `z` 维度是最外层的（变化最慢）
+
+
+全局线程索引的计算方式为:
+```
+int tid = blockIdx.z * gridDim.x * gridDim.y + blockIdx.y * gridDim.y + threadIdx.x;
 ```
 
 有时也会用到复合形式的线程索引:
 ```
-int nx=blockDim.x×blockIdx.x+threadIdx.x;
-int ny=blockDim.y×blockIdx.y+threadIdx.y;
-int nz=blockDim.z×blockIdx.z+threadIdx.z;
+int nx = blockDim.x * blockIdx.x + threadIdx.x;
+int ny = blockDim.y * blockIdx.y + threadIdx.y;
+int nz = blockDim.z * blockIdx.z + threadIdx.z;
 ```
 
+```
+#include <cstdio>
+
+__global__ void hello_world(){
+	int bidx = blockIdx.x; // 0 ~ 1
+	int bidy = blockIdx.y; // 0 ~ 2
+	int bidz = blockIdx.z; // 0 ~ 1
+
+	int tidx = threadIdx.x; // 0 ~ 2
+	int tidy = threadIdx.y; // 0 ~ 1
+	int tidz = threadIdx.z; // 0
+
+	int gbid = blockIdx.z * gridDim.x * gridDim.y + blockIdx.y * gridDim.x + blockIdx.x; // 0~11
+	int ltid = threadIdx.z * blockDim.x * blockDim.y + threadIdx.y * blockDim.x + threadIdx.x; // 0~5
+	int gtid = gbid * blockDim.x * blockDim.y * blockDim.z + ltid; // 0~71
+
+
+	printf("hello world from block:(%d, %d，%d) and thread:(%d, %d，%d)，with global block id:%d, local thread id:%02d, global thread id: %03d.\n", 
+				bidx, bidy,bidz, tidx, tidy, tidz, gbid, ltid, gtid);
+}
+
+int main()
+{
+	const dim3 grid_Size(2, 3, 2);
+	const dim3 block_size(3, 2);
+	hello_world<<<grid_Size,block_size>>>();
+	cudaDeviceSynchronize();
+
+	return 0;
+}
+```
+
+输出：
+```
+hello world from block:(0, 2，1) and thread:(0, 0，0)，with global block id:10, local thread id:00, global thread id: 060.
+hello world from block:(0, 2，1) and thread:(1, 0，0)，with global block id:10, local thread id:01, global thread id: 061.
+hello world from block:(0, 2，1) and thread:(2, 0，0)，with global block id:10, local thread id:02, global thread id: 062.
+hello world from block:(0, 2，1) and thread:(0, 1，0)，with global block id:10, local thread id:03, global thread id: 063.
+hello world from block:(0, 2，1) and thread:(1, 1，0)，with global block id:10, local thread id:04, global thread id: 064.
+hello world from block:(0, 2，1) and thread:(2, 1，0)，with global block id:10, local thread id:05, global thread id: 065.
+hello world from block:(0, 0，0) and thread:(0, 0，0)，with global block id:0, local thread id:00, global thread id: 000.
+hello world from block:(0, 0，0) and thread:(1, 0，0)，with global block id:0, local thread id:01, global thread id: 001.
+hello world from block:(0, 0，0) and thread:(2, 0，0)，with global block id:0, local thread id:02, global thread id: 002.
+hello world from block:(0, 0，0) and thread:(0, 1，0)，with global block id:0, local thread id:03, global thread id: 003.
+hello world from block:(0, 0，0) and thread:(1, 1，0)，with global block id:0, local thread id:04, global thread id: 004.
+hello world from block:(0, 0，0) and thread:(2, 1，0)，with global block id:0, local thread id:05, global thread id: 005.
+hello world from block:(1, 2，0) and thread:(0, 0，0)，with global block id:5, local thread id:00, global thread id: 030.
+hello world from block:(1, 2，0) and thread:(1, 0，0)，with global block id:5, local thread id:01, global thread id: 031.
+hello world from block:(1, 2，0) and thread:(2, 0，0)，with global block id:5, local thread id:02, global thread id: 032.
+hello world from block:(1, 2，0) and thread:(0, 1，0)，with global block id:5, local thread id:03, global thread id: 033.
+hello world from block:(1, 2，0) and thread:(1, 1，0)，with global block id:5, local thread id:04, global thread id: 034.
+hello world from block:(1, 2，0) and thread:(2, 1，0)，with global block id:5, local thread id:05, global thread id: 035.
+hello world from block:(1, 0，1) and thread:(0, 0，0)，with global block id:7, local thread id:00, global thread id: 042.
+hello world from block:(1, 0，1) and thread:(1, 0，0)，with global block id:7, local thread id:01, global thread id: 043.
+hello world from block:(1, 0，1) and thread:(2, 0，0)，with global block id:7, local thread id:02, global thread id: 044.
+hello world from block:(1, 0，1) and thread:(0, 1，0)，with global block id:7, local thread id:03, global thread id: 045.
+hello world from block:(1, 0，1) and thread:(1, 1，0)，with global block id:7, local thread id:04, global thread id: 046.
+hello world from block:(1, 0，1) and thread:(2, 1，0)，with global block id:7, local thread id:05, global thread id: 047.
+hello world from block:(0, 1，0) and thread:(0, 0，0)，with global block id:2, local thread id:00, global thread id: 012.
+hello world from block:(0, 1，0) and thread:(1, 0，0)，with global block id:2, local thread id:01, global thread id: 013.
+hello world from block:(0, 1，0) and thread:(2, 0，0)，with global block id:2, local thread id:02, global thread id: 014.
+hello world from block:(0, 1，0) and thread:(0, 1，0)，with global block id:2, local thread id:03, global thread id: 015.
+hello world from block:(0, 1，0) and thread:(1, 1，0)，with global block id:2, local thread id:04, global thread id: 016.
+hello world from block:(0, 1，0) and thread:(2, 1，0)，with global block id:2, local thread id:05, global thread id: 017.
+hello world from block:(1, 1，0) and thread:(0, 0，0)，with global block id:3, local thread id:00, global thread id: 018.
+hello world from block:(1, 1，0) and thread:(1, 0，0)，with global block id:3, local thread id:01, global thread id: 019.
+hello world from block:(1, 1，0) and thread:(2, 0，0)，with global block id:3, local thread id:02, global thread id: 020.
+hello world from block:(1, 1，0) and thread:(0, 1，0)，with global block id:3, local thread id:03, global thread id: 021.
+hello world from block:(1, 1，0) and thread:(1, 1，0)，with global block id:3, local thread id:04, global thread id: 022.
+hello world from block:(1, 1，0) and thread:(2, 1，0)，with global block id:3, local thread id:05, global thread id: 023.
+hello world from block:(1, 0，0) and thread:(0, 0，0)，with global block id:1, local thread id:00, global thread id: 006.
+hello world from block:(1, 0，0) and thread:(1, 0，0)，with global block id:1, local thread id:01, global thread id: 007.
+hello world from block:(1, 0，0) and thread:(2, 0，0)，with global block id:1, local thread id:02, global thread id: 008.
+hello world from block:(1, 0，0) and thread:(0, 1，0)，with global block id:1, local thread id:03, global thread id: 009.
+hello world from block:(1, 0，0) and thread:(1, 1，0)，with global block id:1, local thread id:04, global thread id: 010.
+hello world from block:(1, 0，0) and thread:(2, 1，0)，with global block id:1, local thread id:05, global thread id: 011.
+hello world from block:(0, 1，1) and thread:(0, 0，0)，with global block id:8, local thread id:00, global thread id: 048.
+hello world from block:(0, 1，1) and thread:(1, 0，0)，with global block id:8, local thread id:01, global thread id: 049.
+hello world from block:(0, 1，1) and thread:(2, 0，0)，with global block id:8, local thread id:02, global thread id: 050.
+hello world from block:(0, 1，1) and thread:(0, 1，0)，with global block id:8, local thread id:03, global thread id: 051.
+hello world from block:(0, 1，1) and thread:(1, 1，0)，with global block id:8, local thread id:04, global thread id: 052.
+hello world from block:(0, 1，1) and thread:(2, 1，0)，with global block id:8, local thread id:05, global thread id: 053.
+hello world from block:(1, 2，1) and thread:(0, 0，0)，with global block id:11, local thread id:00, global thread id: 066.
+hello world from block:(1, 2，1) and thread:(1, 0，0)，with global block id:11, local thread id:01, global thread id: 067.
+hello world from block:(1, 2，1) and thread:(2, 0，0)，with global block id:11, local thread id:02, global thread id: 068.
+hello world from block:(1, 2，1) and thread:(0, 1，0)，with global block id:11, local thread id:03, global thread id: 069.
+hello world from block:(1, 2，1) and thread:(1, 1，0)，with global block id:11, local thread id:04, global thread id: 070.
+hello world from block:(1, 2，1) and thread:(2, 1，0)，with global block id:11, local thread id:05, global thread id: 071.
+hello world from block:(0, 0，1) and thread:(0, 0，0)，with global block id:6, local thread id:00, global thread id: 036.
+hello world from block:(0, 0，1) and thread:(1, 0，0)，with global block id:6, local thread id:01, global thread id: 037.
+hello world from block:(0, 0，1) and thread:(2, 0，0)，with global block id:6, local thread id:02, global thread id: 038.
+hello world from block:(0, 0，1) and thread:(0, 1，0)，with global block id:6, local thread id:03, global thread id: 039.
+hello world from block:(0, 0，1) and thread:(1, 1，0)，with global block id:6, local thread id:04, global thread id: 040.
+hello world from block:(0, 0，1) and thread:(2, 1，0)，with global block id:6, local thread id:05, global thread id: 041.
+hello world from block:(1, 1，1) and thread:(0, 0，0)，with global block id:9, local thread id:00, global thread id: 054.
+hello world from block:(1, 1，1) and thread:(1, 0，0)，with global block id:9, local thread id:01, global thread id: 055.
+hello world from block:(1, 1，1) and thread:(2, 0，0)，with global block id:9, local thread id:02, global thread id: 056.
+hello world from block:(1, 1，1) and thread:(0, 1，0)，with global block id:9, local thread id:03, global thread id: 057.
+hello world from block:(1, 1，1) and thread:(1, 1，0)，with global block id:9, local thread id:04, global thread id: 058.
+hello world from block:(1, 1，1) and thread:(2, 1，0)，with global block id:9, local thread id:05, global thread id: 059.
+hello world from block:(0, 2，0) and thread:(0, 0，0)，with global block id:4, local thread id:00, global thread id: 024.
+hello world from block:(0, 2，0) and thread:(1, 0，0)，with global block id:4, local thread id:01, global thread id: 025.
+hello world from block:(0, 2，0) and thread:(2, 0，0)，with global block id:4, local thread id:02, global thread id: 026.
+hello world from block:(0, 2，0) and thread:(0, 1，0)，with global block id:4, local thread id:03, global thread id: 027.
+hello world from block:(0, 2，0) and thread:(1, 1，0)，with global block id:4, local thread id:04, global thread id: 028.
+hello world from block:(0, 2，0) and thread:(2, 1，0)，with global block id:4, local thread id:05, global thread id: 029.
+```
 ### 线程束
 
+一个线程块中的线程还可以细分为不同的线程束（thread warp）。一个线程束（即一束线程）是同一个线程块中相邻的 `warpSize` 个线程:
 
+- 大小固定：`warpSize` 也是一个内建变量，表示线程束大小，其值对于目前所有的 GPU 架构都是 32
+- 执行同步：在同一个线程束中的所有线程要么同时执行相同的指令，要么处于空闲状态。也就是说，如果线程束中的一个线程执行指令，其他线程也会执行相同的指令，或者一起等待
+- SIMT 模型：线程束体现了 CUDA 的单指令多线程（Single Instruction, Multiple Threads，简称SIMT）执行模型。在 SIMT 模型中，线程束内的线程执行相同的指令，但可以有不同的执行路径，例如，由于条件分支导致的不同执行流程
+- 硬件特性：线程束的设计是为了最大化GPU的执行效率，通过将线程束作为调度和执行的基本单位，可以减少线程调度的开销，并提高指令的吞吐量
 
+所以，一个线程束就是连续的 32 个线程。具体地说，一个线程块中第 0～31 个线程属于第 0 个线程束，第 32～63 个线程属于第 1 个线程束，以此类推：
 
-
-
-
+![](./imgs/thread_warp.png)
 
