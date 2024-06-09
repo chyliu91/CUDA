@@ -1,0 +1,1 @@
+/usr/bin/c++ CMakeFiles/vec_add_timing_cpu.dir/vec_add_timing_cpu_generated_vec_add_timing_cpu.cu.o -o vec_add_timing_cpu  /usr/local/cuda-11.6/lib64/libcudart_static.a -ldl /usr/lib/x86_64-linux-gnu/librt.a /usr/local/cuda-11.6/lib64/libcudart_static.a -ldl /usr/lib/x86_64-linux-gnu/librt.a 

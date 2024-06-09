@@ -108,7 +108,7 @@ endif()
 set(CMAKE_HOST_FLAGS  )
 set(CMAKE_HOST_FLAGS_DEBUG -g)
 set(CMAKE_HOST_FLAGS_MINSIZEREL -Os -DNDEBUG)
-set(CMAKE_HOST_FLAGS_RELEASE -O3 -DNDEBUG)
+set(CMAKE_HOST_FLAGS_RELEASE -O3 -DNDEBUG -O3)
 set(CMAKE_HOST_FLAGS_RELWITHDEBINFO -O2 -g -DNDEBUG)
 
 # Take the compiler flags and package them up to be sent to the compiler via -Xcompiler

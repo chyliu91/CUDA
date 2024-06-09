@@ -162,6 +162,45 @@ depend:
 .PHONY : depend
 
 #=============================================================================
+# Target rules for targets named hello_world
+
+# Build rule for target.
+hello_world: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 hello_world
+.PHONY : hello_world
+
+# fast build rule for target.
+hello_world/fast:
+	$(MAKE) $(MAKESILENT) -f threads/CMakeFiles/hello_world.dir/build.make threads/CMakeFiles/hello_world.dir/build
+.PHONY : hello_world/fast
+
+#=============================================================================
+# Target rules for targets named thread_id
+
+# Build rule for target.
+thread_id: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 thread_id
+.PHONY : thread_id
+
+# fast build rule for target.
+thread_id/fast:
+	$(MAKE) $(MAKESILENT) -f threads/CMakeFiles/thread_id.dir/build.make threads/CMakeFiles/thread_id.dir/build
+.PHONY : thread_id/fast
+
+#=============================================================================
+# Target rules for targets named dev_query
+
+# Build rule for target.
+dev_query: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 dev_query
+.PHONY : dev_query
+
+# fast build rule for target.
+dev_query/fast:
+	$(MAKE) $(MAKESILENT) -f cuda_program/CMakeFiles/dev_query.dir/build.make cuda_program/CMakeFiles/dev_query.dir/build
+.PHONY : dev_query/fast
+
+#=============================================================================
 # Target rules for targets named vec_add
 
 # Build rule for target.
@@ -201,30 +240,30 @@ cuda_check2/fast:
 .PHONY : cuda_check2/fast
 
 #=============================================================================
-# Target rules for targets named hello_world
+# Target rules for targets named vec_add_timing_gpu
 
 # Build rule for target.
-hello_world: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 hello_world
-.PHONY : hello_world
+vec_add_timing_gpu: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 vec_add_timing_gpu
+.PHONY : vec_add_timing_gpu
 
 # fast build rule for target.
-hello_world/fast:
-	$(MAKE) $(MAKESILENT) -f threads/CMakeFiles/hello_world.dir/build.make threads/CMakeFiles/hello_world.dir/build
-.PHONY : hello_world/fast
+vec_add_timing_gpu/fast:
+	$(MAKE) $(MAKESILENT) -f performance_analysis_optimization/CMakeFiles/vec_add_timing_gpu.dir/build.make performance_analysis_optimization/CMakeFiles/vec_add_timing_gpu.dir/build
+.PHONY : vec_add_timing_gpu/fast
 
 #=============================================================================
-# Target rules for targets named thread_id
+# Target rules for targets named vec_add_timing_cpu
 
 # Build rule for target.
-thread_id: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 thread_id
-.PHONY : thread_id
+vec_add_timing_cpu: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 vec_add_timing_cpu
+.PHONY : vec_add_timing_cpu
 
 # fast build rule for target.
-thread_id/fast:
-	$(MAKE) $(MAKESILENT) -f threads/CMakeFiles/thread_id.dir/build.make threads/CMakeFiles/thread_id.dir/build
-.PHONY : thread_id/fast
+vec_add_timing_cpu/fast:
+	$(MAKE) $(MAKESILENT) -f performance_analysis_optimization/CMakeFiles/vec_add_timing_cpu.dir/build.make performance_analysis_optimization/CMakeFiles/vec_add_timing_cpu.dir/build
+.PHONY : vec_add_timing_cpu/fast
 
 # Help Target
 help:
@@ -240,9 +279,12 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... cuda_check1"
 	@echo "... cuda_check2"
+	@echo "... dev_query"
 	@echo "... hello_world"
 	@echo "... thread_id"
 	@echo "... vec_add"
+	@echo "... vec_add_timing_cpu"
+	@echo "... vec_add_timing_gpu"
 .PHONY : help
 
 

@@ -162,6 +162,20 @@ depend:
 .PHONY : depend
 
 # Convenience name for target.
+cuda_program/CMakeFiles/dev_query.dir/rule:
+	cd /mnt/e/jinjie/CUDA/codes/CUDABasis/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 cuda_program/CMakeFiles/dev_query.dir/rule
+.PHONY : cuda_program/CMakeFiles/dev_query.dir/rule
+
+# Convenience name for target.
+dev_query: cuda_program/CMakeFiles/dev_query.dir/rule
+.PHONY : dev_query
+
+# fast build rule for target.
+dev_query/fast:
+	cd /mnt/e/jinjie/CUDA/codes/CUDABasis/build && $(MAKE) $(MAKESILENT) -f cuda_program/CMakeFiles/dev_query.dir/build.make cuda_program/CMakeFiles/dev_query.dir/build
+.PHONY : dev_query/fast
+
+# Convenience name for target.
 cuda_program/CMakeFiles/vec_add.dir/rule:
 	cd /mnt/e/jinjie/CUDA/codes/CUDABasis/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 cuda_program/CMakeFiles/vec_add.dir/rule
 .PHONY : cuda_program/CMakeFiles/vec_add.dir/rule
@@ -217,6 +231,7 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... cuda_check1"
 	@echo "... cuda_check2"
+	@echo "... dev_query"
 	@echo "... vec_add"
 .PHONY : help
 

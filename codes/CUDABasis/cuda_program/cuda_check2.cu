@@ -3,6 +3,8 @@
 #include <cstdio>
 #include <ctime>
 
+const double EPSILON = 1.0e-5;
+
 __global__ void add(const double *a, const double *b, double *c, int size)
 {
     const int tid = blockDim.x * blockIdx.x + threadIdx.x;
@@ -16,7 +18,7 @@ void check(const double *a, const double *b, const double *result, const int N)
 {
     for (int i = 0; i < N; i++)
     {
-        if (fabs(a[i] + b[i] - result[i]) > 1e-15)
+        if (fabs(a[i] + b[i] - result[i]) > EPSILON)
         {
             printf("index %d calculation error\n", i);
         }

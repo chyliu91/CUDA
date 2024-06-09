@@ -11,7 +11,7 @@ void check(const double *a, const double *b, const double *result, const int N);
 
 int main(void)
 {
-    const int N = 1e8 + 1;
+    const int N = 1e8;
     const int M = sizeof(double) * N;
 
     // 申请主机端的内存
@@ -77,7 +77,7 @@ void check(const double *a, const double *b, const double *result, const int N)
 {
     for (int i = 0; i < N; i++)
     {
-        if (fabs(a[i] + b[i] - result[i]) > 1e-15)
+        if (fabs(a[i] + b[i] - result[i]) > EPSILON)
         {
             printf("index %d calculation error\n", i);
         }

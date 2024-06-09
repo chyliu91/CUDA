@@ -481,3 +481,5 @@ File: add.cu, Line: 59, Error Code: 9, Error Text: invalid configuration argumen
 ```
 
 如果不加上上面错误的检查，则只知道最终 `check` 函数显示的结果不对，很难查找具体的错误原因。
+
+

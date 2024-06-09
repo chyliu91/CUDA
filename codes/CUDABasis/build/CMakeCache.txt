@@ -469,7 +469,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_NM
 CMAKE_NM-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=3
+CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=4
 //ADVANCED property for variable: CMAKE_OBJCOPY
 CMAKE_OBJCOPY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_OBJDUMP
@@ -516,7 +516,7 @@ CMAKE_VERBOSE_MAKEFILE-ADVANCED:INTERNAL=1
 CUDA_64_BIT_DEVICE_CODE-ADVANCED:INTERNAL=1
 //List of intermediate files that are part of the cuda dependency
 // scanning.
-CUDA_ADDITIONAL_CLEAN_FILES:INTERNAL=/mnt/e/jinjie/CUDA/codes/CUDABasis/build/cuda_program/CMakeFiles/vec_add.dir//vec_add_generated_vec_add.cu.o.depend;/mnt/e/jinjie/CUDA/codes/CUDABasis/build/cuda_program/CMakeFiles/cuda_check1.dir//cuda_check1_generated_cuda_check1.cu.o.depend;/mnt/e/jinjie/CUDA/codes/CUDABasis/build/threads/CMakeFiles/hello_world.dir//hello_world_generated_hello_world.cu.o.depend;/mnt/e/jinjie/CUDA/codes/CUDABasis/build/threads/CMakeFiles/thread_id.dir//thread_id_generated_thread_id.cu.o.depend;/mnt/e/jinjie/CUDA/codes/CUDABasis/build/cuda_program/CMakeFiles/cuda_check2.dir//cuda_check2_generated_cuda_check2.cu.o.depend
+CUDA_ADDITIONAL_CLEAN_FILES:INTERNAL=/mnt/e/jinjie/CUDA/codes/CUDABasis/build/threads/CMakeFiles/hello_world.dir//hello_world_generated_hello_world.cu.o.depend;/mnt/e/jinjie/CUDA/codes/CUDABasis/build/threads/CMakeFiles/thread_id.dir//thread_id_generated_thread_id.cu.o.depend;/mnt/e/jinjie/CUDA/codes/CUDABasis/build/cuda_program/CMakeFiles/dev_query.dir//dev_query_generated_dev_query.cu.o.depend;/mnt/e/jinjie/CUDA/codes/CUDABasis/build/cuda_program/CMakeFiles/vec_add.dir//vec_add_generated_vec_add.cu.o.depend;/mnt/e/jinjie/CUDA/codes/CUDABasis/build/cuda_program/CMakeFiles/cuda_check1.dir//cuda_check1_generated_cuda_check1.cu.o.depend;/mnt/e/jinjie/CUDA/codes/CUDABasis/build/cuda_program/CMakeFiles/cuda_check2.dir//cuda_check2_generated_cuda_check2.cu.o.depend;/mnt/e/jinjie/CUDA/codes/CUDABasis/build/performance_analysis_optimization/CMakeFiles/vec_add_timing_gpu.dir//vec_add_timing_gpu_generated_vec_add_timing_gpu.cu.o.depend;/mnt/e/jinjie/CUDA/codes/CUDABasis/build/performance_analysis_optimization/CMakeFiles/vec_add_timing_cpu.dir//vec_add_timing_cpu_generated_vec_add_timing_cpu.cu.o.depend
 //ADVANCED property for variable: CUDA_ATTACH_VS_BUILD_RULE_TO_CUDA_FILE
 CUDA_ATTACH_VS_BUILD_RULE_TO_CUDA_FILE-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CUDA_BUILD_CUBIN

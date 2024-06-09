@@ -1,0 +1,13 @@
+/mnt/e/jinjie/CUDA/codes/CUDATools/build/CMakeFiles/edit_cache.dir
+/mnt/e/jinjie/CUDA/codes/CUDATools/build/CMakeFiles/rebuild_cache.dir
+/mnt/e/jinjie/CUDA/codes/CUDATools/build/CMakeFiles/list_install_components.dir
+/mnt/e/jinjie/CUDA/codes/CUDATools/build/CMakeFiles/install.dir
+/mnt/e/jinjie/CUDA/codes/CUDATools/build/CMakeFiles/install/local.dir
+/mnt/e/jinjie/CUDA/codes/CUDATools/build/CMakeFiles/install/strip.dir
+/mnt/e/jinjie/CUDA/codes/CUDATools/build/mem-check/CMakeFiles/check1.dir
+/mnt/e/jinjie/CUDA/codes/CUDATools/build/mem-check/CMakeFiles/edit_cache.dir
+/mnt/e/jinjie/CUDA/codes/CUDATools/build/mem-check/CMakeFiles/rebuild_cache.dir
+/mnt/e/jinjie/CUDA/codes/CUDATools/build/mem-check/CMakeFiles/list_install_components.dir
+/mnt/e/jinjie/CUDA/codes/CUDATools/build/mem-check/CMakeFiles/install.dir
+/mnt/e/jinjie/CUDA/codes/CUDATools/build/mem-check/CMakeFiles/install/local.dir
+/mnt/e/jinjie/CUDA/codes/CUDATools/build/mem-check/CMakeFiles/install/strip.dir

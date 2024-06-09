@@ -18,8 +18,9 @@ function(add_cuda_executable name srcs)
     target_link_libraries(${name} ${CUDA_LIBRARIES})
     install(TARGETS ${name} DESTINATION bin)
 endfunction()
-    
 
-add_subdirectory(cuda_program)
+
+
 add_subdirectory(threads)
-
+add_subdirectory(cuda_program)
+add_subdirectory(performance_analysis_optimization)

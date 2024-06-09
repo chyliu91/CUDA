@@ -63,24 +63,28 @@ CMAKE_BINARY_DIR = /mnt/e/jinjie/CUDA/codes/CUDABasis/build
 # Directory level rules for the build root directory
 
 # The main recursive "all" target.
-all: cuda_program/all
 all: threads/all
+all: cuda_program/all
+all: performance_analysis_optimization/all
 .PHONY : all
 
 # The main recursive "preinstall" target.
-preinstall: cuda_program/preinstall
 preinstall: threads/preinstall
+preinstall: cuda_program/preinstall
+preinstall: performance_analysis_optimization/preinstall
 .PHONY : preinstall
 
 # The main recursive "clean" target.
-clean: cuda_program/clean
 clean: threads/clean
+clean: cuda_program/clean
+clean: performance_analysis_optimization/clean
 .PHONY : clean
 
 #=============================================================================
 # Directory level rules for directory cuda_program
 
 # Recursive "all" directory target.
+cuda_program/all: cuda_program/CMakeFiles/dev_query.dir/all
 cuda_program/all: cuda_program/CMakeFiles/vec_add.dir/all
 cuda_program/all: cuda_program/CMakeFiles/cuda_check1.dir/all
 cuda_program/all: cuda_program/CMakeFiles/cuda_check2.dir/all
@@ -91,10 +95,28 @@ cuda_program/preinstall:
 .PHONY : cuda_program/preinstall
 
 # Recursive "clean" directory target.
+cuda_program/clean: cuda_program/CMakeFiles/dev_query.dir/clean
 cuda_program/clean: cuda_program/CMakeFiles/vec_add.dir/clean
 cuda_program/clean: cuda_program/CMakeFiles/cuda_check1.dir/clean
 cuda_program/clean: cuda_program/CMakeFiles/cuda_check2.dir/clean
 .PHONY : cuda_program/clean
+
+#=============================================================================
+# Directory level rules for directory performance_analysis_optimization
+
+# Recursive "all" directory target.
+performance_analysis_optimization/all: performance_analysis_optimization/CMakeFiles/vec_add_timing_gpu.dir/all
+performance_analysis_optimization/all: performance_analysis_optimization/CMakeFiles/vec_add_timing_cpu.dir/all
+.PHONY : performance_analysis_optimization/all
+
+# Recursive "preinstall" directory target.
+performance_analysis_optimization/preinstall:
+.PHONY : performance_analysis_optimization/preinstall
+
+# Recursive "clean" directory target.
+performance_analysis_optimization/clean: performance_analysis_optimization/CMakeFiles/vec_add_timing_gpu.dir/clean
+performance_analysis_optimization/clean: performance_analysis_optimization/CMakeFiles/vec_add_timing_cpu.dir/clean
+.PHONY : performance_analysis_optimization/clean
 
 #=============================================================================
 # Directory level rules for directory threads
@@ -114,13 +136,91 @@ threads/clean: threads/CMakeFiles/thread_id.dir/clean
 .PHONY : threads/clean
 
 #=============================================================================
+# Target rules for target threads/CMakeFiles/hello_world.dir
+
+# All Build rule for target.
+threads/CMakeFiles/hello_world.dir/all:
+	$(MAKE) $(MAKESILENT) -f threads/CMakeFiles/hello_world.dir/build.make threads/CMakeFiles/hello_world.dir/depend
+	$(MAKE) $(MAKESILENT) -f threads/CMakeFiles/hello_world.dir/build.make threads/CMakeFiles/hello_world.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/mnt/e/jinjie/CUDA/codes/CUDABasis/build/CMakeFiles --progress-num=7,8 "Built target hello_world"
+.PHONY : threads/CMakeFiles/hello_world.dir/all
+
+# Build rule for subdir invocation for target.
+threads/CMakeFiles/hello_world.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/e/jinjie/CUDA/codes/CUDABasis/build/CMakeFiles 2
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 threads/CMakeFiles/hello_world.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/e/jinjie/CUDA/codes/CUDABasis/build/CMakeFiles 0
+.PHONY : threads/CMakeFiles/hello_world.dir/rule
+
+# Convenience name for target.
+hello_world: threads/CMakeFiles/hello_world.dir/rule
+.PHONY : hello_world
+
+# clean rule for target.
+threads/CMakeFiles/hello_world.dir/clean:
+	$(MAKE) $(MAKESILENT) -f threads/CMakeFiles/hello_world.dir/build.make threads/CMakeFiles/hello_world.dir/clean
+.PHONY : threads/CMakeFiles/hello_world.dir/clean
+
+#=============================================================================
+# Target rules for target threads/CMakeFiles/thread_id.dir
+
+# All Build rule for target.
+threads/CMakeFiles/thread_id.dir/all:
+	$(MAKE) $(MAKESILENT) -f threads/CMakeFiles/thread_id.dir/build.make threads/CMakeFiles/thread_id.dir/depend
+	$(MAKE) $(MAKESILENT) -f threads/CMakeFiles/thread_id.dir/build.make threads/CMakeFiles/thread_id.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/mnt/e/jinjie/CUDA/codes/CUDABasis/build/CMakeFiles --progress-num=9,10 "Built target thread_id"
+.PHONY : threads/CMakeFiles/thread_id.dir/all
+
+# Build rule for subdir invocation for target.
+threads/CMakeFiles/thread_id.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/e/jinjie/CUDA/codes/CUDABasis/build/CMakeFiles 2
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 threads/CMakeFiles/thread_id.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/e/jinjie/CUDA/codes/CUDABasis/build/CMakeFiles 0
+.PHONY : threads/CMakeFiles/thread_id.dir/rule
+
+# Convenience name for target.
+thread_id: threads/CMakeFiles/thread_id.dir/rule
+.PHONY : thread_id
+
+# clean rule for target.
+threads/CMakeFiles/thread_id.dir/clean:
+	$(MAKE) $(MAKESILENT) -f threads/CMakeFiles/thread_id.dir/build.make threads/CMakeFiles/thread_id.dir/clean
+.PHONY : threads/CMakeFiles/thread_id.dir/clean
+
+#=============================================================================
+# Target rules for target cuda_program/CMakeFiles/dev_query.dir
+
+# All Build rule for target.
+cuda_program/CMakeFiles/dev_query.dir/all:
+	$(MAKE) $(MAKESILENT) -f cuda_program/CMakeFiles/dev_query.dir/build.make cuda_program/CMakeFiles/dev_query.dir/depend
+	$(MAKE) $(MAKESILENT) -f cuda_program/CMakeFiles/dev_query.dir/build.make cuda_program/CMakeFiles/dev_query.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/mnt/e/jinjie/CUDA/codes/CUDABasis/build/CMakeFiles --progress-num=5,6 "Built target dev_query"
+.PHONY : cuda_program/CMakeFiles/dev_query.dir/all
+
+# Build rule for subdir invocation for target.
+cuda_program/CMakeFiles/dev_query.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/e/jinjie/CUDA/codes/CUDABasis/build/CMakeFiles 2
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 cuda_program/CMakeFiles/dev_query.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/e/jinjie/CUDA/codes/CUDABasis/build/CMakeFiles 0
+.PHONY : cuda_program/CMakeFiles/dev_query.dir/rule
+
+# Convenience name for target.
+dev_query: cuda_program/CMakeFiles/dev_query.dir/rule
+.PHONY : dev_query
+
+# clean rule for target.
+cuda_program/CMakeFiles/dev_query.dir/clean:
+	$(MAKE) $(MAKESILENT) -f cuda_program/CMakeFiles/dev_query.dir/build.make cuda_program/CMakeFiles/dev_query.dir/clean
+.PHONY : cuda_program/CMakeFiles/dev_query.dir/clean
+
+#=============================================================================
 # Target rules for target cuda_program/CMakeFiles/vec_add.dir
 
 # All Build rule for target.
 cuda_program/CMakeFiles/vec_add.dir/all:
 	$(MAKE) $(MAKESILENT) -f cuda_program/CMakeFiles/vec_add.dir/build.make cuda_program/CMakeFiles/vec_add.dir/depend
 	$(MAKE) $(MAKESILENT) -f cuda_program/CMakeFiles/vec_add.dir/build.make cuda_program/CMakeFiles/vec_add.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/mnt/e/jinjie/CUDA/codes/CUDABasis/build/CMakeFiles --progress-num=9,10 "Built target vec_add"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/mnt/e/jinjie/CUDA/codes/CUDABasis/build/CMakeFiles --progress-num=11,12 "Built target vec_add"
 .PHONY : cuda_program/CMakeFiles/vec_add.dir/all
 
 # Build rule for subdir invocation for target.
@@ -192,56 +292,56 @@ cuda_program/CMakeFiles/cuda_check2.dir/clean:
 .PHONY : cuda_program/CMakeFiles/cuda_check2.dir/clean
 
 #=============================================================================
-# Target rules for target threads/CMakeFiles/hello_world.dir
+# Target rules for target performance_analysis_optimization/CMakeFiles/vec_add_timing_gpu.dir
 
 # All Build rule for target.
-threads/CMakeFiles/hello_world.dir/all:
-	$(MAKE) $(MAKESILENT) -f threads/CMakeFiles/hello_world.dir/build.make threads/CMakeFiles/hello_world.dir/depend
-	$(MAKE) $(MAKESILENT) -f threads/CMakeFiles/hello_world.dir/build.make threads/CMakeFiles/hello_world.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/mnt/e/jinjie/CUDA/codes/CUDABasis/build/CMakeFiles --progress-num=5,6 "Built target hello_world"
-.PHONY : threads/CMakeFiles/hello_world.dir/all
+performance_analysis_optimization/CMakeFiles/vec_add_timing_gpu.dir/all:
+	$(MAKE) $(MAKESILENT) -f performance_analysis_optimization/CMakeFiles/vec_add_timing_gpu.dir/build.make performance_analysis_optimization/CMakeFiles/vec_add_timing_gpu.dir/depend
+	$(MAKE) $(MAKESILENT) -f performance_analysis_optimization/CMakeFiles/vec_add_timing_gpu.dir/build.make performance_analysis_optimization/CMakeFiles/vec_add_timing_gpu.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/mnt/e/jinjie/CUDA/codes/CUDABasis/build/CMakeFiles --progress-num=15,16 "Built target vec_add_timing_gpu"
+.PHONY : performance_analysis_optimization/CMakeFiles/vec_add_timing_gpu.dir/all
 
 # Build rule for subdir invocation for target.
-threads/CMakeFiles/hello_world.dir/rule: cmake_check_build_system
+performance_analysis_optimization/CMakeFiles/vec_add_timing_gpu.dir/rule: cmake_check_build_system
 	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/e/jinjie/CUDA/codes/CUDABasis/build/CMakeFiles 2
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 threads/CMakeFiles/hello_world.dir/all
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 performance_analysis_optimization/CMakeFiles/vec_add_timing_gpu.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/e/jinjie/CUDA/codes/CUDABasis/build/CMakeFiles 0
-.PHONY : threads/CMakeFiles/hello_world.dir/rule
+.PHONY : performance_analysis_optimization/CMakeFiles/vec_add_timing_gpu.dir/rule
 
 # Convenience name for target.
-hello_world: threads/CMakeFiles/hello_world.dir/rule
-.PHONY : hello_world
+vec_add_timing_gpu: performance_analysis_optimization/CMakeFiles/vec_add_timing_gpu.dir/rule
+.PHONY : vec_add_timing_gpu
 
 # clean rule for target.
-threads/CMakeFiles/hello_world.dir/clean:
-	$(MAKE) $(MAKESILENT) -f threads/CMakeFiles/hello_world.dir/build.make threads/CMakeFiles/hello_world.dir/clean
-.PHONY : threads/CMakeFiles/hello_world.dir/clean
+performance_analysis_optimization/CMakeFiles/vec_add_timing_gpu.dir/clean:
+	$(MAKE) $(MAKESILENT) -f performance_analysis_optimization/CMakeFiles/vec_add_timing_gpu.dir/build.make performance_analysis_optimization/CMakeFiles/vec_add_timing_gpu.dir/clean
+.PHONY : performance_analysis_optimization/CMakeFiles/vec_add_timing_gpu.dir/clean
 
 #=============================================================================
-# Target rules for target threads/CMakeFiles/thread_id.dir
+# Target rules for target performance_analysis_optimization/CMakeFiles/vec_add_timing_cpu.dir
 
 # All Build rule for target.
-threads/CMakeFiles/thread_id.dir/all:
-	$(MAKE) $(MAKESILENT) -f threads/CMakeFiles/thread_id.dir/build.make threads/CMakeFiles/thread_id.dir/depend
-	$(MAKE) $(MAKESILENT) -f threads/CMakeFiles/thread_id.dir/build.make threads/CMakeFiles/thread_id.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/mnt/e/jinjie/CUDA/codes/CUDABasis/build/CMakeFiles --progress-num=7,8 "Built target thread_id"
-.PHONY : threads/CMakeFiles/thread_id.dir/all
+performance_analysis_optimization/CMakeFiles/vec_add_timing_cpu.dir/all:
+	$(MAKE) $(MAKESILENT) -f performance_analysis_optimization/CMakeFiles/vec_add_timing_cpu.dir/build.make performance_analysis_optimization/CMakeFiles/vec_add_timing_cpu.dir/depend
+	$(MAKE) $(MAKESILENT) -f performance_analysis_optimization/CMakeFiles/vec_add_timing_cpu.dir/build.make performance_analysis_optimization/CMakeFiles/vec_add_timing_cpu.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/mnt/e/jinjie/CUDA/codes/CUDABasis/build/CMakeFiles --progress-num=13,14 "Built target vec_add_timing_cpu"
+.PHONY : performance_analysis_optimization/CMakeFiles/vec_add_timing_cpu.dir/all
 
 # Build rule for subdir invocation for target.
-threads/CMakeFiles/thread_id.dir/rule: cmake_check_build_system
+performance_analysis_optimization/CMakeFiles/vec_add_timing_cpu.dir/rule: cmake_check_build_system
 	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/e/jinjie/CUDA/codes/CUDABasis/build/CMakeFiles 2
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 threads/CMakeFiles/thread_id.dir/all
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 performance_analysis_optimization/CMakeFiles/vec_add_timing_cpu.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/e/jinjie/CUDA/codes/CUDABasis/build/CMakeFiles 0
-.PHONY : threads/CMakeFiles/thread_id.dir/rule
+.PHONY : performance_analysis_optimization/CMakeFiles/vec_add_timing_cpu.dir/rule
 
 # Convenience name for target.
-thread_id: threads/CMakeFiles/thread_id.dir/rule
-.PHONY : thread_id
+vec_add_timing_cpu: performance_analysis_optimization/CMakeFiles/vec_add_timing_cpu.dir/rule
+.PHONY : vec_add_timing_cpu
 
 # clean rule for target.
-threads/CMakeFiles/thread_id.dir/clean:
-	$(MAKE) $(MAKESILENT) -f threads/CMakeFiles/thread_id.dir/build.make threads/CMakeFiles/thread_id.dir/clean
-.PHONY : threads/CMakeFiles/thread_id.dir/clean
+performance_analysis_optimization/CMakeFiles/vec_add_timing_cpu.dir/clean:
+	$(MAKE) $(MAKESILENT) -f performance_analysis_optimization/CMakeFiles/vec_add_timing_cpu.dir/build.make performance_analysis_optimization/CMakeFiles/vec_add_timing_cpu.dir/clean
+.PHONY : performance_analysis_optimization/CMakeFiles/vec_add_timing_cpu.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.
