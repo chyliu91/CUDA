@@ -188,6 +188,19 @@ cuda_check1/fast:
 .PHONY : cuda_check1/fast
 
 #=============================================================================
+# Target rules for targets named cuda_check2
+
+# Build rule for target.
+cuda_check2: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 cuda_check2
+.PHONY : cuda_check2
+
+# fast build rule for target.
+cuda_check2/fast:
+	$(MAKE) $(MAKESILENT) -f cuda_program/CMakeFiles/cuda_check2.dir/build.make cuda_program/CMakeFiles/cuda_check2.dir/build
+.PHONY : cuda_check2/fast
+
+#=============================================================================
 # Target rules for targets named hello_world
 
 # Build rule for target.
@@ -226,6 +239,7 @@ help:
 	@echo "... list_install_components"
 	@echo "... rebuild_cache"
 	@echo "... cuda_check1"
+	@echo "... cuda_check2"
 	@echo "... hello_world"
 	@echo "... thread_id"
 	@echo "... vec_add"

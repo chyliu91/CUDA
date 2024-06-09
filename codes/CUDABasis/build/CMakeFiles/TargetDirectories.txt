@@ -6,6 +6,7 @@
 /mnt/e/jinjie/CUDA/codes/CUDABasis/build/CMakeFiles/install/strip.dir
 /mnt/e/jinjie/CUDA/codes/CUDABasis/build/cuda_program/CMakeFiles/vec_add.dir
 /mnt/e/jinjie/CUDA/codes/CUDABasis/build/cuda_program/CMakeFiles/cuda_check1.dir
+/mnt/e/jinjie/CUDA/codes/CUDABasis/build/cuda_program/CMakeFiles/cuda_check2.dir
 /mnt/e/jinjie/CUDA/codes/CUDABasis/build/cuda_program/CMakeFiles/edit_cache.dir
 /mnt/e/jinjie/CUDA/codes/CUDABasis/build/cuda_program/CMakeFiles/rebuild_cache.dir
 /mnt/e/jinjie/CUDA/codes/CUDABasis/build/cuda_program/CMakeFiles/list_install_components.dir

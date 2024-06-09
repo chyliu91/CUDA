@@ -189,6 +189,20 @@ cuda_check1/fast:
 	cd /mnt/e/jinjie/CUDA/codes/CUDABasis/build && $(MAKE) $(MAKESILENT) -f cuda_program/CMakeFiles/cuda_check1.dir/build.make cuda_program/CMakeFiles/cuda_check1.dir/build
 .PHONY : cuda_check1/fast
 
+# Convenience name for target.
+cuda_program/CMakeFiles/cuda_check2.dir/rule:
+	cd /mnt/e/jinjie/CUDA/codes/CUDABasis/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 cuda_program/CMakeFiles/cuda_check2.dir/rule
+.PHONY : cuda_program/CMakeFiles/cuda_check2.dir/rule
+
+# Convenience name for target.
+cuda_check2: cuda_program/CMakeFiles/cuda_check2.dir/rule
+.PHONY : cuda_check2
+
+# fast build rule for target.
+cuda_check2/fast:
+	cd /mnt/e/jinjie/CUDA/codes/CUDABasis/build && $(MAKE) $(MAKESILENT) -f cuda_program/CMakeFiles/cuda_check2.dir/build.make cuda_program/CMakeFiles/cuda_check2.dir/build
+.PHONY : cuda_check2/fast
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -202,6 +216,7 @@ help:
 	@echo "... list_install_components"
 	@echo "... rebuild_cache"
 	@echo "... cuda_check1"
+	@echo "... cuda_check2"
 	@echo "... vec_add"
 .PHONY : help
 

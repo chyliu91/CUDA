@@ -1,0 +1,1 @@
+/usr/bin/c++ CMakeFiles/cuda_check2.dir/cuda_check2_generated_cuda_check2.cu.o -o cuda_check2  /usr/local/cuda-11.6/lib64/libcudart_static.a -ldl /usr/lib/x86_64-linux-gnu/librt.a /usr/local/cuda-11.6/lib64/libcudart_static.a -ldl /usr/lib/x86_64-linux-gnu/librt.a 
