@@ -1,0 +1,1 @@
+/usr/bin/c++ CMakeFiles/hello_world.dir/hello_world_generated_hello_world.cu.o -o hello_world  /usr/local/cuda-11.6/lib64/libcudart_static.a -ldl /usr/lib/x86_64-linux-gnu/librt.a /usr/local/cuda-11.6/lib64/libcudart_static.a -ldl /usr/lib/x86_64-linux-gnu/librt.a 

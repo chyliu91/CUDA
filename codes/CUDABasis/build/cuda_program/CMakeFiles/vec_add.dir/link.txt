@@ -1,0 +1,1 @@
+/usr/bin/c++ CMakeFiles/vec_add.dir/vec_add_generated_vec_add.cu.o -o vec_add  /usr/local/cuda-11.6/lib64/libcudart_static.a -ldl /usr/lib/x86_64-linux-gnu/librt.a /usr/local/cuda-11.6/lib64/libcudart_static.a -ldl /usr/lib/x86_64-linux-gnu/librt.a 

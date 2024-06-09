@@ -1,0 +1,1 @@
+/usr/bin/c++ CMakeFiles/thread_id.dir/thread_id_generated_thread_id.cu.o -o thread_id  /usr/local/cuda-11.6/lib64/libcudart_static.a -ldl /usr/lib/x86_64-linux-gnu/librt.a /usr/local/cuda-11.6/lib64/libcudart_static.a -ldl /usr/lib/x86_64-linux-gnu/librt.a 
