@@ -1,5 +1,5 @@
-add_cuda_executable(dev_query dev_query.cu)
-add_cuda_executable(vec_add vec_add.cu)
-add_cuda_executable(cuda_check1 cuda_check1.cu)
-add_cuda_executable(cuda_check2 cuda_check2.cu)
-
+add_executable(dev_query dev_query.cu)
+add_executable(vec_add vec_add.cu)
+add_executable(cuda_check1 cuda_check1.cu)
+add_executable(cuda_check2 cuda_check2.cu)
+add_executable(static static.cu)

@@ -1,26 +1,14 @@
-cmake_minimum_required(VERSION 3.12)
-project(cuda_basis)
+cmake_minimum_required(VERSION 3.10)
+enable_language(CUDA)
 
-find_package(CUDA REQUIRED)
-if(NOT CUDA_FOUND)
-    message(FATAL "could not find CUDA")
-else()
-    message(STATUS "CUDA version: ${CUDA_VERSION}")
-    message(STATUS "CUDA include path: ${CUDA_INCLUDE_DIRS}")
-    message(STATUS "CUDA libraries: ${CUDA_LIBRARIES}")
-endif()
+project(cuda_basis LANGUAGE CXX CUDA)
 
-include_directories(${CUDA_INCLUDE_DIRS})
+include(CheckLanguage)
+check_language(CUDA)
+
 include_directories(./)
 
-function(add_cuda_executable name srcs)
-    cuda_add_executable(${name} ${srcs})
-    target_link_libraries(${name} ${CUDA_LIBRARIES})
-    install(TARGETS ${name} DESTINATION bin)
-endfunction()
-
-
-
-add_subdirectory(threads)
 add_subdirectory(cuda_program)
 add_subdirectory(performance_analysis_optimization)
+add_subdirectory(threads)
+

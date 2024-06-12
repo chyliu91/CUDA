@@ -1,0 +1,7 @@
+/mnt/e/jinjie/CUDA/codes/CUDABasis/cuda_program/build/CMakeFiles/dev_query.dir
+/mnt/e/jinjie/CUDA/codes/CUDABasis/cuda_program/build/CMakeFiles/vec_add.dir
+/mnt/e/jinjie/CUDA/codes/CUDABasis/cuda_program/build/CMakeFiles/cuda_check1.dir
+/mnt/e/jinjie/CUDA/codes/CUDABasis/cuda_program/build/CMakeFiles/cuda_check2.dir
+/mnt/e/jinjie/CUDA/codes/CUDABasis/cuda_program/build/CMakeFiles/static.dir
+/mnt/e/jinjie/CUDA/codes/CUDABasis/cuda_program/build/CMakeFiles/edit_cache.dir
+/mnt/e/jinjie/CUDA/codes/CUDABasis/cuda_program/build/CMakeFiles/rebuild_cache.dir
